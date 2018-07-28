@@ -21,7 +21,7 @@ def get_pred_norm_factor(gen2expr_wgtmat, freqs, alpha, size=5000):
 
 # Get the relevant parameters for simulation given the weights and the set up
 # This partitions the alpha weight accoding to different sets of genotype.
-def get_params(freqs, gen2expr_wgtmat, alpha, perm, gene_props=[0.4, 0.4]):
+def get_params(freqs, gen2expr_wgtmat, alpha, perm, gene_props):
 	# expression weights for each disease (sub-phenotype)
 	# the elements in each row of subalpha that does not correspond to the
 	# disease of that row will be set to 0
@@ -45,9 +45,10 @@ def get_params(freqs, gen2expr_wgtmat, alpha, perm, gene_props=[0.4, 0.4]):
 
 if __name__ == "__main__":
 	weight_path, genos_path, result_path  = sys.argv[1:]
+	gene_props = list(map(float, sys.argv[4:]))
 	gen2expr_wgtmat, expr2row, snp2col, snps_ref, alpha = pickle.load(open(weight_path, "rb"))
 	sample, snps, genos = pickle.load(open(genos_path, "rb"))
 	freqs = get_freqs(genos)
 	perm = np.random.permutation(len(alpha))
-	subalpha, means, stds = get_params(freqs, gen2expr_wgtmat, alpha, perm)
+	subalpha, means, stds = get_params(freqs, gen2expr_wgtmat, alpha, perm, gene_props)
 	pickle.dump((subalpha, means, stds, freqs, perm), open(result_path, "wb"))
