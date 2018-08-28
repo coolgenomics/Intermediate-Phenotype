@@ -51,4 +51,4 @@ if __name__ == "__main__":
 	freqs = get_freqs(genos)
 	perm = np.random.permutation(len(alpha))
 	subalpha, means, stds = get_params(freqs, gen2expr_wgtmat, alpha, perm, gene_props)
-	pickle.dump((subalpha, means, stds, freqs, perm), open(result_path, "wb"))
+	pickle.dump((subalpha, means, stds, freqs, perm, gene_props), open(result_path, "wb"))

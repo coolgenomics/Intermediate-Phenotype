@@ -54,6 +54,6 @@ if __name__ == "__main__":
 	control_size = int(sys.argv[5])
 	case_sizes = list(map(int, sys.argv[6:]))
 	gen2expr_wgtmat, expr2row, snp2col, snps_ref, alpha = pickle.load(open(weight_path, 'rb'))
-	subalpha, means, stds, freqs, perm = pickle.load(open(param_path, 'rb'))
+	subalpha, means, stds, freqs, perm, gene_props = pickle.load(open(param_path, 'rb'))
 	cases, control = get_cases_and_control(case_sizes, control_size, freqs, gen2expr_wgtmat, subalpha, means, stds, heritability)
-	pickle.dump((perm, means, stds, cases, control), open(result_path, "wb"))
+	pickle.dump((perm, means, stds, cases, control, gene_props), open(result_path, "wb"))
